@@ -12,7 +12,7 @@ namespace LocationFood.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+           return View();
         }
 
         public IActionResult About()
