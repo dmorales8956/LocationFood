@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace LocationFood.Web.Controllers.Data.Entities
 {
-    public class Customer
+    public class Favorite
     {
-        public int Id { get; set; }
+        public int Id { get; set; }       
+        public string Calification { get; set; }
+
     }
 }

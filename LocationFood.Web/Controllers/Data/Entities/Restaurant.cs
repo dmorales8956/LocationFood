@@ -20,7 +20,7 @@ namespace LocationFood.Web.Controllers.Data.Entities
         [MaxLength(100)]
         public string  Address{ get; set; }
 
-        public string  Chair { get; set; }
+        public int  Chair { get; set; }
 
 
     }

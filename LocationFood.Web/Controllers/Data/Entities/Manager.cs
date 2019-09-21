@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LocationFood.Web.Controllers.Data.Entities
 {
-    public class Customer
+    public class Manager
     {
         public int Id { get; set; }
     }
