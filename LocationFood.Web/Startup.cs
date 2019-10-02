@@ -39,6 +39,7 @@ namespace LocationFood.Web
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            //Falta hacer el SeedDb y agregarle los roles que queramos
             services.AddScoped<IUserHelper, UserHelper>();
 
 
