@@ -14,5 +14,9 @@ namespace LocationFood.Web.Controllers.Data.Entities
         public string Remarks { get; set; }
 
         public decimal Price { get; set; }
+
+        public Restaurant Restaurant { get; set; }
+
+        public ICollection<MenuReservation> MenuReservations { get; set; }
     }
 }

@@ -33,5 +33,13 @@ namespace LocationFood.Web.Controllers.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime ReservationHourLocal => ReservationHour.ToLocalTime();
 
+        public ICollection<MenuReservation> MenuReservations { get; set; }
+
+        public Restaurant Restaurant { get; set; }
+
+        public Customer Customer { get; set; }
+
+        public ICollection<ReservationState> ReservationStates { get; set; }
+
     }
 }

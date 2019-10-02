@@ -13,5 +13,8 @@ namespace LocationFood.Web.Controllers.Data.Entities
 
         public int Chair { get; set; }
 
+        public Menu Menu { get; set; }
+        public Reservation Reservation { get; set; }
+
     }
 }

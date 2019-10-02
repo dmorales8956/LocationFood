@@ -10,5 +10,10 @@ namespace LocationFood.Web.Controllers.Data.Entities
         public int Id { get; set; }       
         public string Calification { get; set; }
 
+        public Customer Customer { get; set; }
+
+        public Restaurant Restaurant { get; set; }
+
+
     }
 }

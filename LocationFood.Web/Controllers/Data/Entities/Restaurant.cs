@@ -22,6 +22,17 @@ namespace LocationFood.Web.Controllers.Data.Entities
 
         public int  Chair { get; set; }
 
+        public AdminRestaurant AdminRestaurant { get; set; }
+
+        public ICollection<Favorite> Favorites { get; set; }
+
+        public RestaurantType RestaurantType { get; set; }
+
+        public ICollection<Menu> Menus { get; set; }
+
+        public ICollection<Reservation> Reservations { get; set; }
+
+
 
     }
 }

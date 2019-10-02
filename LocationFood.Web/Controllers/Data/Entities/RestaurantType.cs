@@ -10,5 +10,7 @@ namespace LocationFood.Web.Controllers.Data.Entities
         public int Id { get; set; }
 
         public string Remarks { get; set; }
+
+        public ICollection<Restaurant> Restaurants { get; set; }
     }
 }

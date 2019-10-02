@@ -31,5 +31,9 @@ namespace LocationFood.Web.Controllers.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StateHourLocal => StateHour.ToLocalTime();
+
+        public Reservation Reservation { get; set; }
+
+        public State State { get; set; }
     }
 }
