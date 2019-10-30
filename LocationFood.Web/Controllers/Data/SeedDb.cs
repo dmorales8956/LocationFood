@@ -50,6 +50,15 @@ namespace LocationFood.Web.Data
                 await _dataContext.SaveChangesAsync();
             }
         }
+        private async Task CheckManagerAsync(User user)
+        {
+            if (!_dataContext.Managers.Any())
+            {
+                _dataContext.Managers.Add(new Manager { User = user });
+                await _dataContext.SaveChangesAsync();
+            }
+        }
+
 
         private async Task CheckRoles()
         {
@@ -99,14 +108,6 @@ namespace LocationFood.Web.Data
                 await _dataContext.SaveChangesAsync();
             }
         }
-        private async Task CheckManagerAsync(User user)
-        {
-            if (!_dataContext.Managers.Any())
-            {
-                _dataContext.Managers.Add(new Manager { User = user });
-                await _dataContext.SaveChangesAsync();
-            }
-        }
-
+       
     }
 }
