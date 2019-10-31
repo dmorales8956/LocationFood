@@ -22,5 +22,13 @@ namespace LocationFood.Web.Helpers
         Task<SignInResult> LoginAsync(LoginViewModel model);
 
         Task LogoutAsync();
+        Task<SignInResult> ValidatePasswordAsync(User user, string password);
+        Task<string> GenerateEmailConfirmationTokenAsync(User user);
+        Task<IdentityResult> UpdateUserAsync(User user);
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+        Task<User> GetUserByIdAsync(string userId);
+        Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+        Task<string> GeneratePasswordResetTokenAsync(User user);
+        Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
     }
 }
