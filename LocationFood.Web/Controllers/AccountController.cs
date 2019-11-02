@@ -98,7 +98,7 @@ namespace LocationFood.Web.Controllers
                             _configuration["Tokens:Issuer"],
                             _configuration["Tokens:Audience"],
                             claims,
-                            expires: DateTime.UtcNow.AddMonths(4),
+                            expires: DateTime.UtcNow.AddMonths(6),
                             signingCredentials: credentials);
                         var results = new
                         {
