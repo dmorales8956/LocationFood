@@ -65,6 +65,7 @@ namespace LocationFood.Web.Controllers
             return View(model);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

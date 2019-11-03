@@ -27,9 +27,10 @@ namespace LocationFood.Web.Data
             var admin = await CheckUserAsync("1010", "Diana", "Morales", "dmorales8956@gmail.com", "310 634 2789", "Calle Luna Calle Sol", "Admin");
             var customer = await CheckUserAsync("2020", "Bresney", "Quintana", "bresney@hotmail.com", "320 634 4847", "Calle Luna Calle Sol", "Customer");
             var manager = await CheckUserAsync("3030", "Bresney", "Quintana", "bresney11@hotmail.com", "320 634 4847", "Calle Luna Calle Sol", "Manager");
-            await CheckManagerAsync(manager);
+
             await CheckAdminsAsync(admin);
             await CheckCustomerAsync(customer);
+            await CheckManagerAsync(manager);
         }
 
         private async Task CheckCustomerAsync(User user)
