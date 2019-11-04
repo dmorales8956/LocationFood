@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LocationFood.Common.Models
+﻿namespace LocationFood.Common.Models
 {
     public class Response<T> where T : class
     {
