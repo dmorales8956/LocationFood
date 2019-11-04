@@ -40,6 +40,6 @@ namespace LocationFood.Web.Controllers.Data.Entities
         public Customer Customer { get; set; }
 
         public ICollection<ReservationState> ReservationStates { get; set; }
-
+        
     }
 }

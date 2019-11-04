@@ -5,5 +5,22 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="LocationFood.Prism.Views.LoginPage"
               Title="{Binding Title}">
+    <StackLayout Padding="10">
+        <Label Text="Email"></Label>
+        <Entry
+            Keyboard="Email"
+            Placeholder="Enter your email.."
+            Text="{Binding Email}"></Entry>
+        <Label Text="Password"></Label>
+        <Entry
+            IsPassword="True"
+            Placeholder="Enter your Password.."
+            Text="{Binding Password}"></Entry>
+        <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsEnabled="{Binding IsEnabled}"
+            IsRunning="{Binding IsRunning}"></ActivityIndicator>
+        <Button Command="{Binding LoginCommand}" Text="Login"></Button>
 
+    </StackLayout>
 </ContentPage>
