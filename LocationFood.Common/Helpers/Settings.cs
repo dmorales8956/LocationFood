@@ -5,7 +5,7 @@ namespace LocationFood.Common.Helpers
 {
     public static class Settings
     {
-        private const string _pet = "Pet";
+        private const string _reservation = "Reservation";
         private const string _token = "Token";
         private const string _customer = "Customer";
         private const string _isRemembered = "IsRemembered";
@@ -16,8 +16,8 @@ namespace LocationFood.Common.Helpers
 
         public static string Pet
         {
-            get => AppSettings.GetValueOrDefault(_pet, _stringDefault);
-            set => AppSettings.AddOrUpdateValue(_pet, value);
+            get => AppSettings.GetValueOrDefault(_reservation, _stringDefault);
+            set => AppSettings.AddOrUpdateValue(_reservation, value);
         }
 
         public static string Token

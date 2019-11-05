@@ -19,16 +19,18 @@ namespace LocationFood.Prism
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
 
+     
+
         protected override async void OnInitialized()
         {
-           
-          
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTUzNjE2QDMxMzcyZTMyMmUzMFJQTXFRSnN6RXpKbzVkRktkTXpoK2R6YlNWWWlJeE9LUVE4ZGQyam1KMDQ9");
             InitializeComponent();
 
             var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
             if (Settings.IsRemembered && token?.Expiration > DateTime.Now)
             {
-                await NavigationService.NavigateAsync("/RestaurantMasterDetailPage/NavigationPage/RestaurantsPage");
+                await NavigationService.NavigateAsync("/RestaurantMasterDetailPage/NavigationPage/ReservationPage");
             }
             else
             {
@@ -42,11 +44,11 @@ namespace LocationFood.Prism
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
-            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<RememberPasswordPage, RememberPasswordPageViewModel>();
-
             containerRegistry.RegisterForNavigation<RestaurantMasterDetailPage, RestaurantMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<RestaurantsPage, RestaurantsPageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReservationPage, ReservationPageViewModel>();
         }
     }
 }

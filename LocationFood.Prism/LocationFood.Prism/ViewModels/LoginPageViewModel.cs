@@ -15,6 +15,8 @@ namespace LocationFood.Prism.ViewModels
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
+        private DelegateCommand _registerCommand;
+        private DelegateCommand _forgotPasswordCommand;
         public LoginPageViewModel(
            INavigationService navigationService,
            IApiService apiService) : base(navigationService)
@@ -28,6 +30,8 @@ namespace LocationFood.Prism.ViewModels
 
         }
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
+        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
+        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPassword));
         public bool IsRemember { get; set; }
         public string Email { get; set; }
         public string Password
@@ -109,7 +113,7 @@ namespace LocationFood.Prism.ViewModels
             IsRunning = false;
             IsEnabled = true;
 
-            await _navigationService.NavigateAsync("MainPage");
+            await _navigationService.NavigateAsync("/RestaurantMasterDetailPage/NavigationPage/RestaurantsPage");
             Password = string.Empty;
         }
         private async void Register()
