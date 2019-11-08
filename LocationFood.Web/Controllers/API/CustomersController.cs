@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace LocationFood.Web.Controllers.API
 {
     [Route("api/[controller]")]

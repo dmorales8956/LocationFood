@@ -159,14 +159,14 @@ namespace LocationFood.Web.Controllers
                     $"<table style = 'max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;'>" +
                     $"  <tr>" +
                     $"    <td style = 'background-color: #34495e; text-align: center; padding: 0'>" +
-                    $"       <a href = 'https://www.facebook.com/NuskeCIV/' >" +
-                    $"         <img width = '20%' style = 'display:block; margin: 1.5% 3%' src= 'https://veterinarianuske.com/wp-content/uploads/2016/10/line_separator.png'>" +
+                    $"       <a href = '' >" +
+                    $"         <img width = '20%' style = 'display:block; margin: 1.5% 3%' src= ''>" +
                     $"       </a>" +
                     $"  </td>" +
                     $"  </tr>" +
                     $"  <tr>" +
                     $"  <td style = 'padding: 0'>" +
-                    $"     <img style = 'padding: 0; display: block' src = 'https://veterinarianuske.com/wp-content/uploads/2018/07/logo-nnske-blanck.jpg' width = '100%'>" +
+                    $"     <img style = 'padding: 0; display: block' src = '' width = '100%'>" +
                     $"  </td>" +
                     $"</tr>" +
                     $"<tr>" +
@@ -174,7 +174,7 @@ namespace LocationFood.Web.Controllers
                     $"      <div style = 'color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif'>" +
                     $"            <h1 style = 'color: #e67e22; margin: 0 0 7px' > Hola </h1>" +
                     $"                    <p style = 'margin: 2px; font-size: 15px'>" +
-                    $"                      la mejor pagina  Especializada en ofertar servicios alimenticios<br>" +
+                    $"                      La mejor página  Especializada en ofertar servicios alimenticios<br>" +
                     $"                      ofreciendo las recetas mas deliciosas en diferentes tipos de restaurantes y en el momento oportuno....<br>" +
                     $"                      Entre los tipos de restaurantes  tenemos:</p>" +
                     $"      <ul style = 'font-size: 15px;  margin: 10px 0'>" +
@@ -187,9 +187,10 @@ namespace LocationFood.Web.Controllers
                     $"  </div>" +
                     $"  <div style = 'width: 100%; text-align: center'>" +
                     $"    <h2 style = 'color: #e67e22; margin: 0 0 7px' >Email Confirmation </h2>" +
-                    $"    To allow the user,plase click in this link:</ br ></ br > " +
+                    $"    " +
+
                     $"    <a style ='text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db' href = \"{tokenLink}\">Confirm Email</a>" +
-                    $"    <p style = 'color: #b3b3b3; font-size: 12px; text-align: center;margin: 30px 0 0' > Nuskë Clinica Integral Veterinaria 2019 </p>" +
+                    $"    <p style = 'color: #b3b3b3; font-size: 12px; text-align: center;margin: 30px 0 0' > LocationFood  2019 </p>" +
                     $"  </div>" +
                     $" </td >" +
                     $"</tr>" +
