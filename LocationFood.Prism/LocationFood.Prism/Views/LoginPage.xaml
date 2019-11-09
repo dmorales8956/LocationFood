@@ -13,6 +13,9 @@
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
                 Padding="10">
+                <Image
+                    Source="logo"/>
+                
                 <Label
                     Text="Email"/>
                 <Entry
