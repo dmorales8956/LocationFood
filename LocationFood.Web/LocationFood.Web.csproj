@@ -13,11 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\Restaurants\" />
+    <ProjectReference Include="..\LocationFood.Common\LocationFood.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LocationFood.Common\LocationFood.Common.csproj" />
+    <Folder Include="wwwroot\images\Restaurants\" />
   </ItemGroup>
 
 </Project>
