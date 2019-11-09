@@ -10,24 +10,22 @@ using LocationFood.Web.Controllers.Data.Entities;
 
 namespace LocationFood.Web.Controllers
 {
-    public class AdminRestaurantsController : Controller
+    public class RestaurantTypesController : Controller
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _context;
 
-        public AdminRestaurantsController(DataContext dataContext)
+        public RestaurantTypesController(DataContext context)
         {
-            _dataContext = dataContext;
+            _context = context;
         }
 
-        // GET: AdminRestaurants
-        public IActionResult Index()
+        // GET: RestaurantTypes
+        public async Task<IActionResult> Index()
         {
-            return View(_dataContext.AdminRestaurants
-                .Include(a => a.User)
-                .Include(a => a.Restaurants));
+            return View(await _context.RestaurantTypes.ToListAsync());
         }
 
-        // GET: AdminRestaurants/Details/5
+        // GET: RestaurantTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,41 +33,39 @@ namespace LocationFood.Web.Controllers
                 return NotFound();
             }
 
-            var adminRestaurant = await _dataContext.AdminRestaurants
-                .Include(a => a.User)
-                .Include(a => a.Restaurants)
-                .FirstOrDefaultAsync(a => a.Id == id);
-            if (adminRestaurant == null)
+            var restaurantType = await _context.RestaurantTypes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (restaurantType == null)
             {
                 return NotFound();
             }
 
-            return View(adminRestaurant);
+            return View(restaurantType);
         }
 
-        // GET: AdminRestaurants/Create
+        // GET: RestaurantTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AdminRestaurants/Create
+        // POST: RestaurantTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] AdminRestaurant adminRestaurant)
+        public async Task<IActionResult> Create([Bind("Id,Remarks,Name")] RestaurantType restaurantType)
         {
             if (ModelState.IsValid)
             {
-                _dataContext.Add(adminRestaurant);
-                await _dataContext.SaveChangesAsync();
+                _context.Add(restaurantType);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(adminRestaurant);
+            return View(restaurantType);
         }
 
-        // GET: AdminRestaurants/Edit/5
+        // GET: RestaurantTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,22 +73,22 @@ namespace LocationFood.Web.Controllers
                 return NotFound();
             }
 
-            var adminRestaurant = await _dataContext.AdminRestaurants.FindAsync(id);
-            if (adminRestaurant == null)
+            var restaurantType = await _context.RestaurantTypes.FindAsync(id);
+            if (restaurantType == null)
             {
                 return NotFound();
             }
-            return View(adminRestaurant);
+            return View(restaurantType);
         }
 
-        // POST: AdminRestaurants/Edit/5
+        // POST: RestaurantTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] AdminRestaurant adminRestaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Remarks,Name")] RestaurantType restaurantType)
         {
-            if (id != adminRestaurant.Id)
+            if (id != restaurantType.Id)
             {
                 return NotFound();
             }
@@ -101,12 +97,12 @@ namespace LocationFood.Web.Controllers
             {
                 try
                 {
-                    _dataContext.Update(adminRestaurant);
-                    await _dataContext.SaveChangesAsync();
+                    _context.Update(restaurantType);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdminRestaurantExists(adminRestaurant.Id))
+                    if (!RestaurantTypeExists(restaurantType.Id))
                     {
                         return NotFound();
                     }
@@ -117,10 +113,10 @@ namespace LocationFood.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(adminRestaurant);
+            return View(restaurantType);
         }
 
-        // GET: AdminRestaurants/Delete/5
+        // GET: RestaurantTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,30 +124,30 @@ namespace LocationFood.Web.Controllers
                 return NotFound();
             }
 
-            var adminRestaurant = await _dataContext.AdminRestaurants
+            var restaurantType = await _context.RestaurantTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (adminRestaurant == null)
+            if (restaurantType == null)
             {
                 return NotFound();
             }
 
-            return View(adminRestaurant);
+            return View(restaurantType);
         }
 
-        // POST: AdminRestaurants/Delete/5
+        // POST: RestaurantTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var adminRestaurant = await _dataContext.AdminRestaurants.FindAsync(id);
-            _dataContext.AdminRestaurants.Remove(adminRestaurant);
-            await _dataContext.SaveChangesAsync();
+            var restaurantType = await _context.RestaurantTypes.FindAsync(id);
+            _context.RestaurantTypes.Remove(restaurantType);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AdminRestaurantExists(int id)
+        private bool RestaurantTypeExists(int id)
         {
-            return _dataContext.AdminRestaurants.Any(e => e.Id == id);
+            return _context.RestaurantTypes.Any(e => e.Id == id);
         }
     }
 }
