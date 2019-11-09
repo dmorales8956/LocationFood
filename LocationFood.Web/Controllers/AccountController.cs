@@ -197,6 +197,7 @@ namespace LocationFood.Web.Controllers
                     $"</table>");
                 ViewBag.Message = "The instructions to allow your user has been sent to email.";
                 return View(model);
+                //cambiar el mensaje que se muestra en el token....
             }
 
             return View(model);

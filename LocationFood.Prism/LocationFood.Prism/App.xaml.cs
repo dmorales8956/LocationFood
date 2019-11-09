@@ -34,7 +34,7 @@ namespace LocationFood.Prism
             }
             else
             {
-                await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
+                await NavigationService.NavigateAsync("/NavigationPage/MapPage");
             }
         }
 
@@ -48,10 +48,10 @@ namespace LocationFood.Prism
             containerRegistry.RegisterForNavigation<RememberPasswordPage, RememberPasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<RestaurantMasterDetailPage, RestaurantMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<RestaurantsPage, RestaurantsPageViewModel>();
-            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
             containerRegistry.RegisterForNavigation<ReservationPage, ReservationPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
         }
     }
 }
