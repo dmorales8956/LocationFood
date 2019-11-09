@@ -34,7 +34,7 @@ namespace LocationFood.Prism
             }
             else
             {
-                await NavigationService.NavigateAsync("/NavigationPage/MapPage");
+                await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
             }
         }
 

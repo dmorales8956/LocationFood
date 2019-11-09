@@ -46,12 +46,12 @@ namespace LocationFood.Prism.ViewModels
                     Title = "Perfil"
                 },
 
-                /*new Menu
+                new Menu
                 {
                     Icon = "ic_action_map",
                     PageName = "MapPage",
                     Title = "Map"
-                },*/
+                },
 
                 new Menu
                 {
