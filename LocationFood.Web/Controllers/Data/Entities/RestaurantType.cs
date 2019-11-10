@@ -12,6 +12,6 @@ namespace LocationFood.Web.Controllers.Data.Entities
         public string Remarks { get; set; }
 
         public ICollection<Restaurant> Restaurants { get; set; }
-        public string Name { get; internal set; }
+        public string Name { get; set; }
     }
 }

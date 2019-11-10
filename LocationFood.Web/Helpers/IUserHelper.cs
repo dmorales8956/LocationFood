@@ -21,6 +21,7 @@ namespace LocationFood.Web.Helpers
         Task<bool> IsUserInRoleAsync(User user, string roleName);
         Task<SignInResult> LoginAsync(LoginViewModel model);
 
+        Task<bool> DeleteUserAsync(string email);
         Task LogoutAsync();
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
         Task<string> GenerateEmailConfirmationTokenAsync(User user);
