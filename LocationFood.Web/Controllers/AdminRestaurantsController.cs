@@ -16,12 +16,21 @@ namespace LocationFood.Web.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
+        private readonly IMailHelper _mailHelper;
+        private readonly ICombosHelper _combosHelper;
+        private readonly IConverterHelper _converterHelper;
 
         public AdminRestaurantsController(DataContext dataContext,
-            IUserHelper userHelper)
+            IUserHelper userHelper,
+            IMailHelper mailHelper,
+            ICombosHelper combosHelper,
+            IConverterHelper converterHelper)
         {
             _dataContext = dataContext;
             _userHelper = userHelper;
+            _mailHelper = mailHelper;
+            _combosHelper = combosHelper;
+            _converterHelper = converterHelper;
         }
 
         // GET: AdminRestaurants
@@ -80,6 +89,56 @@ namespace LocationFood.Web.Controllers
 
                     _dataContext.AdminRestaurants.Add(admin);
                     await _dataContext.SaveChangesAsync();
+
+                    var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                    var tokenLink = Url.Action("ConfirmEmail", "Account", new
+                    {
+                        userid = user.Id,
+                        token = myToken
+                    }, protocol: HttpContext.Request.Scheme);
+
+                    _mailHelper.SendMail(model.Username, "Email confirmation",
+                        $"<table style = 'max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;'>" +
+                        $"  <tr>" +
+                        $"    <td style = 'background-color: #34495e; text-align: center; padding: 0'>" +
+                        $"       <a href = '' >" +
+                        $"         <img width = '20%' style = 'display:block; margin: 1.5% 3%' src= ''>" +
+                        $"       </a>" +
+                        $"  </td>" +
+                        $"  </tr>" +
+                        $"  <tr>" +
+                        $"  <td style = 'padding: 0'>" +
+                        $"     <img style = 'padding: 0; display: block' src = '' width = '100%'>" +
+                        $"  </td>" +
+                        $"</tr>" +
+                        $"<tr>" +
+                        $" <td style = 'background-color: #ecf0f1'>" +
+                        $"      <div style = 'color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif'>" +
+                        $"            <h1 style = 'color: #e67e22; margin: 0 0 7px' > Hola </h1>" +
+                        $"                    <p style = 'margin: 2px; font-size: 15px'>" +
+                        $"                      La mejor página  Especializada en ofertar servicios alimenticios<br>" +
+                        $"                      ofreciendo las recetas mas deliciosas en diferentes tipos de restaurantes y en el momento oportuno....<br>" +
+                        $"                      Entre los tipos de restaurantes  tenemos:</p>" +
+                        $"      <ul style = 'font-size: 15px;  margin: 10px 0'>" +
+                        $"        <li> Fast Casual.</li>" +
+                        $"        <li> Buffet.</li>" +
+                        $"        <li>  Fast Food.</li>" +
+                        $"      </ul>" +
+                        $"  <div style = 'width: 100%;margin:20px 0; display: inline-block;text-align: center'>" +
+                        $"    <img style = 'padding: 0; width: 200px; margin: 5px' src = 'https://veterinarianuske.com/wp-content/uploads/2018/07/tarjetas.png'>" +
+                        $"  </div>" +
+                        $"  <div style = 'width: 100%; text-align: center'>" +
+                        $"    <h2 style = 'color: #e67e22; margin: 0 0 7px' >Email Confirmation </h2>" +
+                        $"    " +
+
+                        $"    <a style ='text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db' href = \"{tokenLink}\">Confirm Email</a>" +
+                        $"    <p style = 'color: #b3b3b3; font-size: 12px; text-align: center;margin: 30px 0 0' > LocationFood  2019 </p>" +
+                        $"  </div>" +
+                        $" </td >" +
+                        $"</tr>" +
+                        $"</table>");
+                    ViewBag.Message = "The instructions to allow your user has been sent to email.";
+
                     return RedirectToAction("Index");
                 }
 
@@ -196,5 +255,44 @@ namespace LocationFood.Web.Controllers
         {
             return _dataContext.AdminRestaurants.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> AddRestaurant(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var admin = await _dataContext.AdminRestaurants.FindAsync(id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RestaurantViewModel
+            {
+                AdminRestaurantId = admin.Id,
+                RestaurantTypes = _combosHelper.GetComboRestaurantTypes()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRestaurant(RestaurantViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var restaurant = await _converterHelper.ToRestaurantAsycn(model, true);
+                _dataContext.Restaurants.Add(restaurant);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.AdminRestaurantId}");
+            }
+            
+            return View(model);
+
+        }
+
+        
     }
 }
