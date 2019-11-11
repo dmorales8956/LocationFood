@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LocationFood.Web.Controllers.Data;
 using LocationFood.Web.Controllers.Data.Entities;
+using LocationFood.Web.Models;
+using LocationFood.Web.Helpers;
 
 namespace LocationFood.Web.Controllers
 {
     public class AdminRestaurantsController : Controller
     {
         private readonly DataContext _dataContext;
+        private readonly IUserHelper _userHelper;
 
-        public AdminRestaurantsController(DataContext dataContext)
+        public AdminRestaurantsController(DataContext dataContext,
+            IUserHelper userHelper)
         {
             _dataContext = dataContext;
+            _userHelper = userHelper;
         }
 
         // GET: AdminRestaurants
@@ -24,7 +29,8 @@ namespace LocationFood.Web.Controllers
         {
             return View(_dataContext.AdminRestaurants
                 .Include(a => a.User)
-                .Include(a => a.Restaurants));
+                .Include(a => a.Restaurants)
+                );
         }
 
         // GET: AdminRestaurants/Details/5
@@ -38,6 +44,7 @@ namespace LocationFood.Web.Controllers
             var adminRestaurant = await _dataContext.AdminRestaurants
                 .Include(a => a.User)
                 .Include(a => a.Restaurants)
+                .ThenInclude(r => r.RestaurantImages)
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (adminRestaurant == null)
             {
@@ -58,15 +65,51 @@ namespace LocationFood.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] AdminRestaurant adminRestaurant)
+        public async Task<IActionResult> Create(AddUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _dataContext.Add(adminRestaurant);
-                await _dataContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var user = await CreateUserAsync(model);
+                if (user != null)
+                {
+                    var admin = new AdminRestaurant
+                    {
+                        Restaurants = new List<Restaurant>(),
+                        User = user
+                    };
+
+                    _dataContext.AdminRestaurants.Add(admin);
+                    await _dataContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, "User with this emailalready exist");
             }
-            return View(adminRestaurant);
+            return View(model);
+        }
+
+        private async Task<User> CreateUserAsync(AddUserViewModel model)
+        {
+            var user = new User
+            {
+                Address = model.Address,
+                Document = model.Document,
+                Email = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber,
+                UserName = model.Username
+            };
+
+            var result = await _userHelper.AddUserAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                user = await _userHelper.GetUserByEmailAsync(model.Username);
+                await _userHelper.AddUserToRoleAsync(user, "Admin");
+                return user;
+            }
+
+            return null;
         }
 
         // GET: AdminRestaurants/Edit/5
