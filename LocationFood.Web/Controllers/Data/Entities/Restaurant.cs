@@ -22,6 +22,12 @@ namespace LocationFood.Web.Controllers.Data.Entities
 
         public int  Chair { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Longitude { get; set; }
+
         public AdminRestaurant AdminRestaurant { get; set; }
 
         public ICollection<Favorite> Favorites { get; set; }
@@ -31,8 +37,21 @@ namespace LocationFood.Web.Controllers.Data.Entities
         public ICollection<Menu> Menus { get; set; }
 
         public ICollection<Reservation> Reservations { get; set; }
+        public ICollection<RestaurantImage> RestaurantImages { get; set; }
 
 
+        public string FirstImage
+        {
+            get
+            {
+                if (RestaurantImages == null || RestaurantImages.Count == 0)
+                {
+                    return "https://locationfood.azurewebsites.net/images/Restaurants/noImage.png";
+                }
+
+                return RestaurantImages.FirstOrDefault().ImageUrl;
+            }
+        }
 
     }
 }

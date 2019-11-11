@@ -1,5 +1,7 @@
 ﻿using LocationFood.Common.Services;
+using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Maps;
 
 namespace LocationFood.Prism.Views
@@ -12,6 +14,7 @@ namespace LocationFood.Prism.Views
             InitializeComponent();
             _geolocatorService = geolocatorService;
             MoveMapToCurrentPositionAsync();
+          
         }
         private async void MoveMapToCurrentPositionAsync()
         {
@@ -23,6 +26,5 @@ namespace LocationFood.Prism.Views
                 position,
                 Distance.FromKilometers(.5)));
         }
-
     }
 }
