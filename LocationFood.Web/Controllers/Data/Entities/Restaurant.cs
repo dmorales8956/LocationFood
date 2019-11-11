@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LocationFood.Web.Controllers.Data.Entities
 {
@@ -15,12 +13,12 @@ namespace LocationFood.Web.Controllers.Data.Entities
         [MaxLength(20)]
         public string FixedPhone { get; set; }
         [MaxLength(20)]
-        public string  CellPhone { get; set; }
+        public string CellPhone { get; set; }
 
         [MaxLength(100)]
-        public string  Address{ get; set; }
+        public string Address { get; set; }
 
-        public int  Chair { get; set; }
+        public int Chair { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N6}")]
         public double Latitude { get; set; }
