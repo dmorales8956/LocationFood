@@ -7,5 +7,6 @@ namespace LocationFood.Web.Helpers
     public interface IConverterHelper
     {
         Task<Restaurant> ToRestaurantAsycn(RestaurantViewModel model, bool isNew);
+        RestaurantViewModel ToRestaurantViewModel(Restaurant restaurant);
     }
 }

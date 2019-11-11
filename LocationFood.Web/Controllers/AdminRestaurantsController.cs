@@ -278,6 +278,28 @@ namespace LocationFood.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> EditRestaurant(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await _dataContext.Restaurants
+                .Include(r => r.AdminRestaurant)
+                .Include(r => r.RestaurantType)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var model = _converterHelper.ToRestaurantViewModel(restaurant);
+
+
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddRestaurant(RestaurantViewModel model)
         {
@@ -293,6 +315,21 @@ namespace LocationFood.Web.Controllers
 
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> EditRestaurant(RestaurantViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var restaurant = await _converterHelper.ToRestaurantAsycn(model, false);
+                _dataContext.Restaurants.Update(restaurant);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.AdminRestaurantId}");
+            }
+
+            return View(model);
+
+        }
+
+
     }
 }
