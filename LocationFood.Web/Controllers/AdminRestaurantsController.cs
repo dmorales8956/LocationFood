@@ -343,7 +343,7 @@ namespace LocationFood.Web.Controllers
             var restaurant = await _dataContext.Restaurants
                 .Include(a => a.AdminRestaurant)
                 .ThenInclude(a => a.User)
-                //.Include(m => m.Menus) 
+                //.Include(m => m.Menus)
                 //.Include(f => f.Favorites)
                 //.Include(re => re.Reservations)
                 .Include(a => a.RestaurantType)
@@ -404,6 +404,44 @@ namespace LocationFood.Web.Controllers
 
             return View(model);
         }
+
+        /*public async Task<IActionResult> AddReservation(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await _dataContext.Restaurants
+                .FirstOrDefaultAsync(r => r.Id == id.Value);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ReservationViewModel
+            {
+                RestaurantId = restaurant.Id,
+                Customer = _combosHelper.GetComboCustomers(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddReservation(ReservationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var reservation = await _converterHelper.ToReservationAsync(model, true);
+                _dataContext.Reservations.Add(reservation);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(DetailsProperty)}/{model.PropertyId}");
+            }
+
+            model.Lessees = _combosHelper.GetComboLessees();
+            return View(model);
+        }*/
 
 
     }

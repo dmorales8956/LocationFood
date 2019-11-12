@@ -15,6 +15,26 @@ namespace LocationFood.Web.Helpers
         {
             _dataContext = dataContext;
         }
+
+        public IEnumerable<SelectListItem> GetComboCustomers()
+        {
+            var list = _dataContext.Customers.Select(c => new SelectListItem
+            {
+                Text = c.User.FullName,
+                Value = $"{c.Id}"
+            })
+                .OrderBy(rt => rt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select a customer...",
+                Value = "0"
+            });
+
+            return list;
+        }
+
         public IEnumerable<SelectListItem> GetComboRestaurantTypes()
         {
             var list = _dataContext.RestaurantTypes.Select(rt => new SelectListItem
