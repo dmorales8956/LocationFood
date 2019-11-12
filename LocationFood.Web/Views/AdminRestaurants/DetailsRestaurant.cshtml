@@ -1,0 +1,175 @@
+﻿@model LocationFood.Web.Controllers.Data.Entities.Restaurant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+<h2>Restaurant</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <h4>AdminRestaurant</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdminRestaurant.User.Document)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AdminRestaurant.User.Document)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdminRestaurant.User.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AdminRestaurant.User.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdminRestaurant.User.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AdminRestaurant.User.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdminRestaurant.User.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AdminRestaurant.User.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdminRestaurant.User.PhoneNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AdminRestaurant.User.PhoneNumber)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            <h4>Restaurant Details</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FixedPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FixedPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CellPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CellPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Longitude)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Longitude)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Latitude)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Latitude)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="EditRestaurant" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="AddImage" asp-route-id="@Model.Id" class="btn btn-primary">Add Image</a>
+    <a asp-action="Details" asp-route-id="@Model.AdminRestaurant.Id" class="btn btn-success">Back to Owner</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <div>
+            @if (Model.RestaurantImages.Count == 0)
+            {
+                <h5>Not images added yet.</h5>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Images</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover table-responsive table-striped" id="MyTableImages">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.RestaurantImages.FirstOrDefault().ImageUrl)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.RestaurantImages)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                                    {
+                                                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:200px;height:200px;max-width: 100%; height: auto;" />
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <button data-id="@item.Id" class="btn btn-danger deleteImage" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!--<partial name="_DeleteDialog" /> -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <!--<script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTableImages').DataTable();
+            // Delete item
+            var item_to_delete;
+            var action_to_delete;
+            $('.deleteImage').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 1;
+            });
+            $("#btnYesDelete").click(function () {
+                if (action_to_delete == 1) {
+                    window.location.href = '/Owners/DeleteImage/' + item_to_delete;
+                }
+            });
+        });
+    </script>-->
+}

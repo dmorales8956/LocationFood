@@ -330,6 +330,30 @@ namespace LocationFood.Web.Controllers
 
         }
 
+        public async Task<IActionResult> DetailsRestaurant(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await _dataContext.Restaurants
+                .Include(a => a.AdminRestaurant)
+                .ThenInclude(a => a.User)
+                //.Include(m => m.Menus) 
+                //.Include(f => f.Favorites)
+                //.Include(re => re.Reservations)
+                .Include(a => a.RestaurantType)
+                .Include(r => r.RestaurantImages)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return View(restaurant);
+        }
+
 
     }
 }
