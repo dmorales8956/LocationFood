@@ -25,6 +25,7 @@ namespace LocationFood.Web.Controllers.Data
         public DbSet<ReservationState> ReservationStates { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantType> RestaurantTypes { get; set; }
+        public DbSet<RestaurantImage> RestaurantImages { get; set; }
         public DbSet<State> States { get; set; }
 
 

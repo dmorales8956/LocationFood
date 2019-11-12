@@ -19,18 +19,21 @@ namespace LocationFood.Web.Controllers
         private readonly IMailHelper _mailHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IImageHerlper _imageHerlper;
 
         public AdminRestaurantsController(DataContext dataContext,
             IUserHelper userHelper,
             IMailHelper mailHelper,
             ICombosHelper combosHelper,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            IImageHerlper imageHerlper)
         {
             _dataContext = dataContext;
             _userHelper = userHelper;
             _mailHelper = mailHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
+            _imageHerlper = imageHerlper;
         }
 
         // GET: AdminRestaurants
@@ -352,6 +355,54 @@ namespace LocationFood.Web.Controllers
             }
 
             return View(restaurant);
+        }
+
+        public async Task<IActionResult> AddImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await _dataContext.Restaurants.FindAsync(id.Value);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RestaurantImageViewModel
+            {
+                Id = restaurant.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImage(RestaurantImageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = string.Empty;
+
+                if (model.ImageFile != null)
+                {
+                    path = await _imageHerlper.UploadImageAsync(model.ImageFile);
+                }
+
+                var restauranImage = new RestaurantImage
+                {
+                    ImageUrl = path,
+                    Restaurant = await _dataContext.Restaurants.FindAsync(model.Id)
+                };
+
+                
+                _dataContext.RestaurantImages.Add(restauranImage);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(DetailsRestaurant)}/{model.Id}");
+            }
+
+            return View(model);
         }
 
 
